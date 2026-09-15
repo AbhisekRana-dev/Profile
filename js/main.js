@@ -440,3 +440,35 @@ $(function() {
 
 });
 
+
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const form = this;
+    const successMessage = document.getElementById("successMessage");
+
+    fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+            "Accept": "application/json"
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+
+            successMessage.style.display = "block";
+            successMessage.textContent = "Message submitted successfully!";
+
+            form.reset();
+
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    })
+    .catch(error => {
+        alert("Something went wrong. Please try again.");
+    });
+
+});
